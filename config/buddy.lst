@@ -1,0 +1,5 @@
+"Alice" <sip:alice@127.0.0.1:5070>
+"Bob" <sip:bob@127.0.0.1:5080>
+"Alice" <sip:alice@127.0.0.2>
+"Bob" <sip:bob@127.0.0.2>
+"Echo" <sip:echo@mjsip.org>
