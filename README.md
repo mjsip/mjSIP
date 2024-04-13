@@ -1,7 +1,5 @@
 # mjSIP
 
-## Welcome to mjSIP
-
 mjSIP is a complete java-based API and implementation of a SIP stack.
 It is available open source under the terms of the GNU GPL license (General Public Licence) as published by the Free Software Foundation.
 SIP (Session Initiation Protocol) is the IETF (Internet Engineering Task Force) signaling standard for managing multimedia session initiation; it is currently defined in RFC 3261. SIP can be used to initiate voice, video and multimedia sessions, for both interactive applications (e.g. an IP phone call or a videoconference) and not interactive ones (e.g. a Video Streaming), and it is the more promising candidate as call setup signaling for the present day and future IP based telephony services. SIP has been also proposed for session initiation related uses, such as for messaging, gaming, etc.
