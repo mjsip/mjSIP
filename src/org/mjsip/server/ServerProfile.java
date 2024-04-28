@@ -19,12 +19,6 @@ public class ServerProfile extends Configure {
 	private static String config_file="mjsip.cfg";
 
 
-	// ********************* static configurations ********************
-
-	/** Proxy transaction timeout (in milliseconds), that corresponds to Timer "C" of RFC2361; RFC2361 suggests C &gt; 3min = 180000ms. */
-	public static int proxy_transaction_timeout=180000;
-
-
 	// ********************* server configurations ********************
 
 	/** The domain names that the server administers.
@@ -134,7 +128,6 @@ public class ServerProfile extends Configure {
 		if (index>0) {  attribute=line.substring(0,index).trim(); par=new Parser(line,index+1);  }
 		else {  attribute=line; par=new Parser("");  }
 
-		if (attribute.equals("proxy_transaction_timeout")) { proxy_transaction_timeout=par.getInt(); return; }
 		if (attribute.equals("is_registrar")) { is_registrar=(par.getString().toLowerCase().startsWith("y")); return; }
 		if (attribute.equals("expires"))        { expires=par.getInt(); return; }
 		if (attribute.equals("register_new_users")) { register_new_users=(par.getString().toLowerCase().startsWith("y")); return; }
