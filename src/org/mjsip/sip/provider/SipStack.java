@@ -117,14 +117,17 @@ public class SipStack extends Configure {
 
 	// ********************* transaction timeouts *********************
 
-	/** starting retransmission timeout (milliseconds); called T1 in RFC2361; they suggest T1=500ms */
+	/** Starting retransmission timeout (milliseconds); called T1 in RFC2361; they suggest T1=500ms */
 	public static long retransmission_timeout=500;  
-	/** maximum retransmission timeout (milliseconds); called T2 in RFC2361; they suggest T2=4sec */
+	/** Maximum retransmission timeout (milliseconds); called T2 in RFC2361; they suggest T2=4sec */
 	public static long max_retransmission_timeout=4000;   
-	/** transaction timeout (milliseconds); RFC2361 suggests 64*T1=32000ms */
+	/** Transaction timeout (milliseconds); RFC2361 suggests 64*T1=32000ms */
 	public static long transaction_timeout=32000;    
-	/** clearing timeout (milliseconds); T4 in RFC2361; they suggest T4=5sec */
+	/** Clearing timeout (milliseconds); T4 in RFC2361; they suggest T4=5sec */
 	public static long clearing_timeout=5000;
+	/** Proxy transaction timeout (in milliseconds), that corresponds to Timer "C" of RFC2361; RFC2361 suggests C &gt; 3min = 180000ms. */
+	public static int proxy_transaction_timeout=180000;
+
 
 	// ******************** general configurations ********************
 
@@ -254,6 +257,7 @@ public class SipStack extends Configure {
 		if (attribute.equals("max_retransmission_timeout")) { max_retransmission_timeout=par.getInt(); return; }
 		if (attribute.equals("transaction_timeout")) { transaction_timeout=par.getInt(); return; }
 		if (attribute.equals("clearing_timeout")) { clearing_timeout=par.getInt(); return; }
+		if (attribute.equals("proxy_transaction_timeout")) { proxy_transaction_timeout=par.getInt(); return; }
 
 		// general configurations
 		if (attribute.equals("max_forwards"))   { max_forwards=par.getInt(); return; }
