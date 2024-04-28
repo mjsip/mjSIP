@@ -24,9 +24,9 @@
 package org.mjsip.sip.transaction;
 
 
-import org.mjsip.server.ServerProfile;
 import org.mjsip.sip.message.SipMessage;
 import org.mjsip.sip.provider.SipProvider;
+import org.mjsip.sip.provider.SipStack;
 import org.zoolu.util.LoggerLevel;
 import org.zoolu.util.Timer;
 import org.zoolu.util.TimerListener;
@@ -48,7 +48,7 @@ public class ProxyInviteTransactionClient extends InviteTransactionClient {
 	public ProxyInviteTransactionClient(SipProvider sip_provider, SipMessage req, TransactionClientListener listener) {
 		super(sip_provider,req,listener);
 		transaction_listener=listener;
-		proxy_transaction_to=new Timer(ServerProfile.proxy_transaction_timeout,new TimerListener() {
+		proxy_transaction_to=new Timer(SipStack.proxy_transaction_timeout,new TimerListener() {
 			@Override
 			public void onTimeout(Timer t) {
 				processTimeout(t);
