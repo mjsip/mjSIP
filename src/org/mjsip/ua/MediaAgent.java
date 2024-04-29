@@ -60,7 +60,7 @@ public class MediaAgent {
 		this.ua_profile=ua_profile;
 
 		// ################# Patch to make audio working with javax.sound.. #################
-		// Currently ExtendedAudioSystem must be initialized before any AudioClipPlayer is initialized.
+		// Currently SimpleAudioSystem must be initialized before any AudioClipPlayer is initialized.
 		// This is caused by a problem with the definition of the audio format
 		// BEGIN PATCH
 		if (!ua_profile.use_rat && !ua_profile.use_jmf_audio) {
@@ -184,7 +184,7 @@ public class MediaAgent {
 			// javax-based audio streamer
 			if (ua_profile.javax_sound_streamer==null) {
 				// standard javax-based audio streamer
-				audio_streamer=new AudioStreamer(audio_flow,audio_in,audio_out,ua_profile.javax_sound_direct_convertion,null,ua_profile.javax_sound_sync,ua_profile.random_early_drop_rate,ua_profile.symmetric_rtp);
+				audio_streamer=new AudioStreamer(audio_flow,audio_in,audio_out,ua_profile.javax_sound_explicit_conversion,null,ua_profile.javax_sound_sync,ua_profile.random_early_drop_rate,ua_profile.symmetric_rtp);
 			}
 			else {
 				// alternative audio streamer (just for experimental uses)

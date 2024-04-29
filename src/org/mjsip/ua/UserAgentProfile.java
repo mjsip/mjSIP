@@ -243,17 +243,16 @@ public class UserAgentProfile extends Configure {
 	/** Alternative javax-sound-based audio streamer (currently just for tests) */
 	public String javax_sound_streamer=null;
 
-	/** Whether using explicit external converter (i.e. direct access to an external conversion provider)
-	  * instead of that provided by javax.sound.sampled.spi.
+	/** Whether using explicit conversion, instead of that provided by javax.sound.sampled.spi.
 	  * It applies only when javax sound is used, that is when no other audio apps (such as jmf or rat) are used. */
-	public boolean javax_sound_direct_convertion=false;
+	public boolean javax_sound_explicit_conversion=false;
 
 	/** Sender synchronization adjustment, that is the time (in milliseconds) that a frame
 	  * should be sent in advance by the RTP sender, before the nominal time.
 	  * A value less that 0 means no re-synchronization explicitly performed by the RTP sender.
 	  * <p>
 	  * Note that when using audio capturing, synchronization with the sample rate
-	  * is implicitly performed by the audio capture device and frames are read at constat bit rate.
+	  * is implicitly performed by the audio capture device and frames are read at constant bit rate.
 	  * However, a value of this parameter >=0 (explicit re-synchronization) is suggested
 	  * in order to let the read() method be non-blocking (in the other case
 	  * the UA audio performances seem to decrease). */
@@ -263,7 +262,7 @@ public class UserAgentProfile extends Configure {
 	  * If synchronization is explicitly performed, the departure time of each RTP packet is equal to its nominal time.
 	  * <p>
 	  * Note that when using audio capturing, synchronization with the sample rate
-	  * is implicitly performed by the audio capture device and frames are read at constat bit rate.
+	  * is implicitly performed by the audio capture device and frames are read at constant bit rate.
 	  * However, an explicit re-synchronization is suggested
 	  * in order to let the read() method be non-blocking (in the other case
 	  * the UA audio performance seems decreasing. */
@@ -534,7 +533,7 @@ public class UserAgentProfile extends Configure {
 		if (attribute.equals("options_server")) {  options_server=(par.getString().toLowerCase().startsWith("y"));  return;  }
 		if (attribute.equals("null_server")) {  null_server=(par.getString().toLowerCase().startsWith("y"));  return;  }
 		if (attribute.equals("javax_sound_streamer")) {  javax_sound_streamer=par.getString();  return;  }
-		if (attribute.equals("javax_sound_direct_convertion")) {  javax_sound_direct_convertion=(par.getString().toLowerCase().startsWith("y"));  return;  }
+		if (attribute.equals("javax_sound_explicit_conversion")) {  javax_sound_explicit_conversion=(par.getString().toLowerCase().startsWith("y"));  return;  }
 		if (attribute.equals("javax_sound_sync")) {  javax_sound_sync=(par.getString().toLowerCase().startsWith("y"));  return;  }
 		if (attribute.equals("random_early_drop_rate")) {  random_early_drop_rate=par.getInt();  return;  }
 		if (attribute.equals("audio_mcast_soaddr")) {  audio_mcast_soaddr=new SocketAddress(par.getString());  return;  } 
