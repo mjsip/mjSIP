@@ -27,8 +27,8 @@ import org.zoolu.sound.codec.g726.G726FormatConversionProvider;
 
 
 
-/** ConverterAudioSystem extends class ExtendedAudioSystem providing audio conversion.
-  * ConverterAudioSystem adds the the following static methods: <br>
+/** ConvertingAudioSystem extends class {@link SimpleAudioSystem} providing audio conversion.
+  * It adds the the following static methods: <br>
   * <ul>
   * <li> convertAudioInputStream(AudioFormat,AudioInputStream,FormatConversionProvider)
   *       - for obtaining a new AudioInputStream of a specified format
@@ -50,7 +50,7 @@ import org.zoolu.sound.codec.g726.G726FormatConversionProvider;
   *
   * </ul>
   */
-public class ConverterAudioSystem extends SimpleAudioSystem {
+public class ConvertingAudioSystem extends SimpleAudioSystem {
 	
 
 	/** Gets a new AudioInputStream of a specified format
@@ -74,8 +74,8 @@ public class ConverterAudioSystem extends SimpleAudioSystem {
 	public static AudioInputStream convertAudioInputStream(CodecType codec, float sample_rate, AudioInputStream is) throws Exception {
 		FormatConversionProvider converter=getFormatConversionProvider(codec);
 		AudioFormat format=getAudioFormat(codec,sample_rate,is.getFormat().getChannels());
-		System.out.println("DEBUG: ConverterAudioSystem: source format: "+is.getFormat());
-		System.out.println("DEBUG: ConverterAudioSystem: target format: "+format);
+		System.out.println("DEBUG: "+ConvertingAudioSystem.class.getSimpleName()+": source format: "+is.getFormat());
+		System.out.println("DEBUG: "+ConvertingAudioSystem.class.getSimpleName()+": target format: "+format);
 		return convertAudioInputStream(format,is,converter);
 	}
 

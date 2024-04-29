@@ -26,7 +26,7 @@ import org.zoolu.util.PipeOutputStream;
 
 
 
-/** ConvertedAudioOutputStream extends class AudioOutputStream in order to obtaing
+/** ConvertedAudioOutputStream extends class AudioOutputStream in order to obtain
   * a transcoded (converted) AudioOutputStream from a base AudioOutputStream by using
   * a specific FormatConversionProvider.
   */
