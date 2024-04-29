@@ -16,6 +16,6 @@ mjSIP includes all classes and methods for creating SIP-based applications, both
 - some useful Call Control APIs (e.g. Call-Control, UserAgent, etc.),
 - a reference implementation of some SIP systems (SIP Registrar/Proxy, Session Border Controlleer, and UA).
 
-## Other resorces
+## Other resources
 
 Official mjSIP site: [mjsip.org](http://mjsip.org).
