@@ -762,7 +762,7 @@ public class UserAgent {
 	
 	/** When a new SIP message is received. */
 	protected void processReceivedMessage(SipProvider sip_provider, SipMessage message) {
-		new ExtendedCall(sip_provider,message,this_call_listener);
+		new ExtendedCall(sip_provider,message,new SipUser(ua_profile.getUserURI(),ua_profile.auth_user,ua_profile.auth_realm,ua_profile.auth_passwd),this_call_listener);
 	}
 
 

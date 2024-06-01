@@ -93,6 +93,7 @@ public class ExtendedInviteDialog extends InviteDialog {
 	  * @param listener invite dialog listener */
 	public ExtendedInviteDialog(SipProvider sip_provider, ExtendedInviteDialogListener listener) {
 		super(sip_provider,listener);
+		log(LoggerLevel.TRACE,"new ExtendedInviteDialog()");
 		init(listener);
 	}
 
@@ -103,6 +104,7 @@ public class ExtendedInviteDialog extends InviteDialog {
 	  * @param listener invite dialog listener */
 	public ExtendedInviteDialog(SipProvider sip_provider, SipMessage invite, ExtendedInviteDialogListener listener) {
 		super(sip_provider,listener);
+		log(LoggerLevel.TRACE,"new ExtendedInviteDialog(invite)");
 		init(listener);    
 		//changeStatus(D_INVITED);
 		//invite_req=invite;
@@ -120,6 +122,7 @@ public class ExtendedInviteDialog extends InviteDialog {
 	  * @param listener invite dialog listener */
 	public ExtendedInviteDialog(SipProvider sip_provider, String username, String realm, String passwd, ExtendedInviteDialogListener listener) {
 		super(sip_provider,listener);
+		log(LoggerLevel.TRACE,"new ExtendedInviteDialog(): realm "+realm);
 		init(listener);
 		this.username=username;
 		this.realm=realm;
@@ -136,6 +139,7 @@ public class ExtendedInviteDialog extends InviteDialog {
 	  * @param listener invite dialog listener */
 	public ExtendedInviteDialog(SipProvider sip_provider, SipMessage invite, String username, String realm, String passwd, ExtendedInviteDialogListener listener) {
 		super(sip_provider,listener);
+		log(LoggerLevel.TRACE,"new ExtendedInviteDialog(invite): realm "+realm);
 		init(listener);    
 		this.username=username;
 		this.realm=realm;
@@ -281,7 +285,7 @@ public class ExtendedInviteDialog extends InviteDialog {
 
 	@Override
 	protected void processTransFailureResponse(TransactionClient tc, SipMessage msg) {
-		log(LoggerLevel.TRACE,"inside onTransFailureResponse("+tc.getTransactionId()+",msg)");
+		log(LoggerLevel.TRACE,"onTransFailureResponse("+tc.getTransactionId()+",msg)");
 		String method=tc.getTransactionMethod();
 		StatusLine status_line=msg.getStatusLine();
 		int code=status_line.getCode();
@@ -318,6 +322,8 @@ public class ExtendedInviteDialog extends InviteDialog {
 		else
 		// AUTHENTICATION-END
 		if (method.equals(SipMethods.INVITE) || method.equals(SipMethods.CANCEL) || method.equals(SipMethods.BYE)) {
+			log(LoggerLevel.TRACE,"onTransFailureResponse("+tc.getTransactionId()+",msg): failure response: "+code);
+			if (code==407) log(LoggerLevel.TRACE,"onTransFailureResponse("+tc.getTransactionId()+",msg): "+msg.getProxyAuthenticateHeader().getRealmParam()+" != "+realm);
 			super.processTransFailureResponse(tc,msg);
 		}
 		else
@@ -335,7 +341,7 @@ public class ExtendedInviteDialog extends InviteDialog {
 
 	@Override
 	protected void processTransSuccessResponse(TransactionClient t, SipMessage msg) {
-		log(LoggerLevel.TRACE,"inside onTransSuccessResponse("+t.getTransactionId()+",msg)");
+		log(LoggerLevel.TRACE,"onTransSuccessResponse("+t.getTransactionId()+",msg)");
 		attempts=0;
 		String method=t.getTransactionMethod();
 		StatusLine status_line=msg.getStatusLine();
@@ -360,7 +366,7 @@ public class ExtendedInviteDialog extends InviteDialog {
 
 	@Override
 	protected void processTransTimeout(TransactionClient t) {
-		log(LoggerLevel.TRACE,"inside onTransTimeout("+t.getTransactionId()+",msg)");
+		log(LoggerLevel.TRACE,"onTransTimeout("+t.getTransactionId()+",msg)");
 		String method=t.getTransactionMethod();
 		if (method.equals(SipMethods.INVITE) || method.equals(SipMethods.BYE)) {
 			super.processTransTimeout(t);

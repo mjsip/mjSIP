@@ -142,7 +142,7 @@ public class Proxy extends Registrar {
 		if (!server_profile.is_open_proxy) {
 			// check whether the caller or callee is a local user 
 			if (!isResponsibleFor(msg.getFromHeader().getNameAddress().getAddress()) && !isResponsibleFor(msg.getToHeader().getNameAddress().getAddress())) {
-				log(LoggerLevel.INFO,"both caller and callee are not registered with the local server: proxy denied.");
+				log(LoggerLevel.INFO,"both caller and callee do not belong to the local server: proxy denied.");
 				sip_provider.sendMessage(SipMessageFactory.createResponse(msg,503,null,null));
 				return;
 			}

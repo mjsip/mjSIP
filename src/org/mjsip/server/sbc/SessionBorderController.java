@@ -154,8 +154,8 @@ public class SessionBorderController extends Proxy {
 	protected SipMessage updateProxyingRequest(SipMessage req) {
 		log(LoggerLevel.DEBUG,"inside updateProxyingRequest(req)");
 		
-		// before doing anything, force the use of a backend proxy
-		if (sbc_profile.backend_proxy!=null) {
+		// before doing anything, force the use of a backend proxy for requests that are not for this server
+		if (sbc_profile.backend_proxy!=null && !isResponsibleFor(req)) {
 			ViaHeader via=req.getViaHeader();
 			SocketAddress via_soaddr=new SocketAddress(via.getHost(),(via.hasPort())?via.getPort():SipStack.default_port);
 			// pass to the backend_proxy only requests that are not coming from it

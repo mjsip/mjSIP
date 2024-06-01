@@ -82,10 +82,11 @@ public class ServerProfile extends Configure {
 	  * a message with recipient 'sip:01234567@example.com' is forwarded to 'sip:01234567@127.0.0.2:7002'
 	  */
 	public ProxyingRule[] authenticated_phone_proxying_rules=null;
+	/** Static rules for proxying number-based SIP-URI the server is NOT responsible for. */
 	public ProxyingRule[] phone_proxying_rules=null;
 
 	/** Array of ProxyingRules based on pairs of destination domain and corresponding nexthop address.
-	  * It provides static rules for proxying domain-based SIP-URI the server is NOT responsible for.
+	  * It provides static rules for proxying domain-based SIP-URI the server is responsible for.
 	  * It make the server acting (also) as 'Interrogating' Proxy, i.e. I-CSCF in the 3G networks.
 	  * Example: <br>
 	  * server is responsible for the domain 'example.com' <br>
@@ -93,6 +94,7 @@ public class ServerProfile extends Configure {
 	  * a message with recipient 'sip:01234567@domain1.foo' is forwarded to 'sip:01234567@proxy.example.net:5060'
 	  */
 	public ProxyingRule[] authenticated_domain_proxying_rules=null;
+	/** Static rules for proxying domain-based SIP-URI the server is NOT responsible for. */
 	public ProxyingRule[] domain_proxying_rules=null;
 
 

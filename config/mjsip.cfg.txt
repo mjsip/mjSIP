@@ -1,5 +1,5 @@
 # 
-#                   MjSip-1.7 Configuration File
+#                   mjSIP-1.9 Configuration File
 # ________________________________________________________________
 #
 # This file inclues all MjSip configuration parameters.
@@ -322,6 +322,8 @@
 #   phone_proxying_rules={prefix=0123,nexthop=127.0.0.2:7002} {prefix=4567,nexthop=127.0.0.2:7003} {prefix=*,nexthop=127.0.0.3:7004}
 #   a message with recipient 'sip:01234567@example.com' is forwarded to 'sip:01234567@127.0.0.2:7002'
 #authenticated_phone_proxying_rules={prefix=0123,nexthop=127.0.0.2:7002}
+
+# Static rules for proxying number-based SIP-URI the server is NOT responsible for.
 #phone_proxying_rules={prefix=4567,nexthop=127.0.0.2:7003} {prefix=*,nexthop=127.0.0.3:7004}
 
 # Sequence of pairs of destination domain and corresponding nexthop address.
@@ -332,6 +334,8 @@
 #   domain_proxying_rules={domain=domain1.foo,nexthop=proxy.example.net:5060}
 #   a message with recipient 'sip:01234567@domain1.foo' is forwarded to 'sip:01234567@proxy.example.net:5060'
 #authenticated_domain_proxying_rules={domain=domain1.foo,nexthop=192.168.0.4:5060}
+
+# Static rules for proxying domain-based SIP-URL the server is NOT responsible for.
 #domain_proxying_rules={domain=domain2.foo,nexthop=192.168.0.5:5060}
 
 

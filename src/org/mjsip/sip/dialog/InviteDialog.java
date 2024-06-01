@@ -1084,7 +1084,7 @@ public class InviteDialog extends Dialog {
 			StatusLine statusline=msg.getStatusLine();
 			int code=statusline.getCode();
 			verifyThat(code>=300 && code <700,"error code was expected");
-			changeStatus(this.D_CALL);
+			changeStatus(D_CALL);
 			if (listener!=null) listener.onDlgByeFailureResponse(this,code,statusline.getReason(),msg);
 		}
 	}

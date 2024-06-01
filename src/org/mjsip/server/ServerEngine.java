@@ -315,7 +315,7 @@ public abstract class ServerEngine {
 				}
 			}*/
 
-			// check whether the request is for a domain the server is responsible for
+			// check whether the request is for a domain the server is authoritative for
 			boolean is_for_this_domain=isResponsibleFor(msg);
 			log(LoggerLevel.TRACE,"is for local domain? "+((is_for_this_domain)?"yes":"no"));
 			
@@ -384,7 +384,7 @@ public abstract class ServerEngine {
 	//}
 	
 
-	/** Whether the server is responsible for the given <i>domain</i>
+	/** Whether the server is authoritative for the given <i>domain</i>
 	  * (i.e. the <i>domain</i> is included in the local domain names list)
 	  * and <i>port</i> (if &gt;0) matches the local server port. */
 	protected boolean isResponsibleFor(String domain, int port) {
