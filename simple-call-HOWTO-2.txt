@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Simple and advanced calls HOW-TO
 # 
 # Date: 28/5/2024
@@ -136,3 +137,143 @@ ua -f config/s21.cfg
 
 # then make a call as in (2) 
 
+=======
+# Simple and advanced calls HOW-TO
+# 
+# Date: 28/5/2024
+#
+
+
+Overview
+---------------------------------------------------------------
+1) Direct call: UA1-->UA2
+2) Registration (with/without authentication): UA-reg->Registrar
+3) Call through Destination Proxy (Registrar+Proxy): UA2-reg->Registrar , UA1-->Registrar/Proxy-->UA2
+4) Call through Destination Proxy on-route: UA2-reg->Registrar , UA1-->Registrar/Proxy-->UA2
+5) Call through Destination Redirect (Registrar+Redirect): UA2-reg->Registrar , UA1-->Registrar/Redirect-->UA2
+6) Forking calls at the Destination Proxy: UA21-reg->Registrar , UA22-reg->Registrar , UA1-->Registrar/Proxy-->UA21
+7) Call through Outbound Proxy and Destination Proxy on-route: UA2-reg->Registrar , UA1-->Proxy-->Registrar/Proxy-->UA2
+8) UAs and servers on different hosts 
+9) Server registrations: UA1-->S2n-->..-->S22-->S21-->UA2
+
+
+
+1) Direct call: UA1-->UA2
+---------------------------------------------------------------
+# Caller UA (UA1, alice):
+ua -f config\a.cfg
+# Callee UA (UA2, bob) running on the same host:
+ua -f config\b.cfg --loopback
+
+# Use '--send-file <audio-file>' for playing out audio from a .wav input file (format: PCM, 8000Hz, 16bit signed, mono):
+ua -f config\a.cfg --send-file ../audio_file.wav
+
+# optionally, use the '--no-gui' option for UA with command-line interface. e.g.:
+ua -f config\b.cfg --loopback --no-gui
+
+# Some tests:
+# UA2 accepts the call 
+# UA2 refuses the call 
+# UA1 cancels the call 
+
+# Callee UA (UA2) with automatic answer (example, after 2secs):
+ua -f config\b.cfg -y 2
+# Caller UA (UA1) with automatic dialing:
+ua -f config\a.cfg -c 127.0.0.1:5080
+
+# Set transport protocol to TCP by editing file 'config\a.cfg': transport_protocols=tcp udp
+# Make a call (UA1 calls UA2):
+ua -f config\b.cfg -y 2
+ua -f config\a.cfg -c 127.0.0.1:5080
+
+# Make a call specifying the transport protocol as URI parameter (e.g. sip:alice@127.0.0.1:5070;transport=tcp):
+ua -f config\a.cfg
+ua -f config\b.cfg --loopback -c "sip:alice@127.0.0.1:5070;transport=tcp"
+
+# Run UA1 and UA2 on two different hosts.
+# For a correct operation it may be necessary to change the 'via_addr' parameter within the files config\a.cfg and config\b.cfg with the correct IP address):
+H2: ua -f config\b.cfg -y 2
+H1: ua -f config\a.cfg -c <H2_ipaddr>:5080
+
+
+
+2) Registration (with/without authentication): UA-reg->Registrar
+---------------------------------------------------------------
+# Run registrar + stateful proxy
+sproxy
+
+# Register the UA with the proxy. You can either set proxy=127.0.0.2 and do_register=yes in the user configuration file or specify the registering Address-of-Record (AOR) at command line:
+ua -f config\a.cfg -r alice@127.0.0.2 
+# or you can specify also the duration (e.g. for 30min):
+ua -f config\a.cfg -r alice@127.0.0.2 -e 1800
+
+# Some tests:
+2.1) Registrar does not require digest authentication ('do_authentication=no' in server.cfg) 
+2.2) Registrar does require digest authentication ('do_authentication=yes' in server.cfg) 
+
+
+
+3) Call through Destination Proxy (Registrar+Proxy): UA2-reg->Registrar , UA1-->Registrar/Proxy-->UA2
+---------------------------------------------------------------
+# Registrar + stateful proxy
+sproxy
+
+# Callee UA (UA2) registered:
+ua -f config\b.cfg -r bob@127.0.0.2
+# Caller UA (UA1) with automatic dialing:
+ua -f config\a.cfg -c bob@127.0.0.2
+
+
+
+4) Call through Destination Proxy on-route: UA2-reg->Registrar , UA1-->Registrar/Proxy-->UA2
+---------------------------------------------------------------
+# set on-route parameter in server.cfg
+# then, repeat steps of (2)
+
+
+
+5) Call through Destination Redirect (Registrar+Redirect): UA2-reg->Registrar , UA1-->Registrar/Redirect-->UA2
+---------------------------------------------------------------
+# use redirect instead of sproxy
+redirect
+
+
+
+6) Forking calls at the Destination Proxy: UA21-reg->Registrar , UA22-reg->Registrar , UA1-->Registrar/Proxy-->UA21
+---------------------------------------------------------------
+# register two UAs (UA21 and UA22) on S2 with the same AOR (i.e. the From URL) 
+ua -f config\b.cfg -r bob@127.0.0.2
+ua -f config\b2.cfg -r bob@127.0.0.2
+# caller UA (UA1) 
+ua -f config\a.cfg -c bob@127.0.0.2
+
+# try with both stateful Proxy (sproxy) and stateless Proxy (proxy)
+
+
+
+7) Call through Outbound Proxy and Destination Proxy on-route: UA2-reg->Registrar , UA1-->Proxy-->Registrar/Proxy-->UA2
+---------------------------------------------------------------
+# set outbound_proxy parameter in a.cfg
+# then, repeat steps of (2)
+
+# try with both Proxy (proxy) and StatefulProxy (sproxy)
+
+
+
+8) UAs and servers on different hosts 
+---------------------------------------------------------------
+# the same as (6) but with UAs and proxies on different hosts; example: UA1 and S1 on host1 and UA2 and S2 on host2
+
+
+
+9) Server registrations: UA2-reg->S21 , [S2(k-1)-reg->S2k ,] UA1-->S2n-->..-->S22-->S21-->UA2
+---------------------------------------------------------------
+# starts two or more servers (Registrar/Proxy), e.g. S21 and S22
+# register UA2 with S21 as in (2)
+# create a new s21.cfg UA configuration file in order to register S21 with S22, using
+ua -f config/s21.cfg
+# optionally create a new s22.cfg UA configuration file in order to register S22 with S23, etc.
+
+# then make a call as in (2) 
+
+>>>>>>> 032426e6b97ea9b881e4e6381fd174ca82174f02
